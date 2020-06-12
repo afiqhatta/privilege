@@ -34,7 +34,7 @@ class StreamThread(Thread):
     def text_generator(self):
         # Generate a list first
         while not thread_stop_event.isSet():
-            text = Scraper('Privilege', self.selection, dt.date.today() - dt.timedelta(weeks=1)).get_text()[randint(0, self.selection-1)]
+            text = Scraper('George Floyd', self.selection, dt.date.today() - dt.timedelta(weeks=2)).get_text()[randint(0, self.selection-1)]
             data = {'text': text,
                     'number_1': round(random() * CANVAS_X, 3),
                     'number_2': round(random() * CANVAS_Y, 3),
@@ -42,7 +42,6 @@ class StreamThread(Thread):
                     'c_2': round(random() * COLOR_LIMIT, 3),
                     'c_3': round(random() * COLOR_LIMIT, 3)}
             socketio.emit('textoutput', data, namespace='/test')
-            print(text)
             sleep(self.time_delay)
 
     def position_generator(self):
